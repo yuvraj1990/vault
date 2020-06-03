@@ -104,3 +104,10 @@ CREATE TABLE `appointment` (
   CONSTRAINT `appointment_ibfk_2` FOREIGN KEY (`clinic_id`) REFERENCES `clinics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `appointment_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#change user name and password as your DB and application.properties file 
+
+spring.datasource.username = 
+spring.datasource.password = 
+#change URL if required 
+spring.datasource.url = jdbc:mysql://localhost:3306/vault?useSSL=false
