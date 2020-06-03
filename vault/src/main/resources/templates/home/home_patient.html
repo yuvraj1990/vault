@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Appointments</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div th:classAppend="${alertClass}" class="alert alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" onclick="this.parentElement.style.display='none';">&times;</button>
+            <strong th:if="${message}" th:utext="${message}"></strong>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12" style="width:100px; float:right;">
+            <a class="btn btn-danger" href="#" th:href="@{/logout}">logout</a>
+        </div>
+        <div class="col-md-12" style="width:200px; float:left;">
+            <h1>Appointments</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Appointment Id</th>
+                    <th>Clinic Name </th>
+                    <th>Address</th>
+                    <th>Appointment Time</th>
+                    <th>Documents</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${appointments.empty}">
+                    <td colspan="2"> No Appointments Available </td>
+                </tr>
+                <tr th:each="appointment : ${appointments}">
+                    <td><span th:text="${appointment.appointmentId}"></span></td>
+                    <td><span th:text="${appointment.clinicName}"></span></td>
+                    <td><span th:text="${appointment.address}"></span></td>
+                    <td><span th:text="${appointment.time}"></span></td>
+                    <td>
+                        <table>
+                            <tr th:each="file : ${appointment.files}">
+                                <td><a th:text="${file.name}" th:href="@{|/patient/document?documentId=${file.id}|}"></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td><form method="post" th:action="@{/patient/document}" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" name="file" class="form-control-file">
+                            <input type="hidden" name="appointmentId" th:value="${appointment.appointmentId}"/>
+                            <input type="hidden" name="userId" th:value="${appointment.userId}" />
+                        </div>
+                        <button type="submit" class="btn btn-success">Upload File</button>
+                    </form></td>
+                    <td>
+                        <form method="post" th:action="@{/patient/document/access}">
+                            <div class="form-group">
+                                <input type="hidden" name="appointmentId" th:value="${appointment.appointmentId}"/>
+                            </div>
+                            <button type="submit" class="   btn btn-primary">Revoke Access</button>
+                        </form>
+                    </td>
+                     <td>
+                             <a  th:href="@{|/patient/document/share?appointmentId=${appointment.appointmentId}|}">
+                                 Share Documents</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
