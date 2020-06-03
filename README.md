@@ -1,6 +1,7 @@
 # vault
 1 . pull the code 
 
+run db dump to your local mysql setup 
 database.sql file 
 
 #change user name and password as your DB and application.properties file 
