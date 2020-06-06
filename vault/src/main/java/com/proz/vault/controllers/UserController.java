@@ -34,7 +34,7 @@ public class UserController {
         if(user.getRole().equals("Patient") && !user.getClinicId().equals(0)) {
             bindingResult.rejectValue("clinicId", "error.user", "Patient not allowed to select clinic");
         }
-        else if(user.getClinicId().equals(0)){
+        else if(!user.getRole().equals("Patient") && user.getClinicId().equals(0)){
             bindingResult.rejectValue("clinicId", "error.user", "Please select your clinic");
         }
         if(userExists != null) {
