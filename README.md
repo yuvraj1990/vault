@@ -14,6 +14,7 @@ insert some entries in clinics table
 
 add roles as 'Patient','Doctor','Assistant' in role table 
 
+
 put next_val in hibernet_sequence table 
 
 run VaultApplication class 
